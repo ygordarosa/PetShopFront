@@ -2,10 +2,11 @@ import { useContext } from "react";
 import PetContext from "./PetContext";
 import Alerta from "../../common/Alert";
 import CampoEntrada from "../../common/InputField";
+import CampoSelect from "../../common/SelectField"
 import Dialogo from "../../common/Dialog";
 function Form() {
 
-    const { objeto, handleChange, acaoCadastrar, alerta } = useContext(PetContext);
+    const { objeto, handleChange, acaoCadastrar, alerta, listaPessoas } = useContext(PetContext);
 
     if (!objeto) {
         console.log("entrou no if")
@@ -26,11 +27,18 @@ function Form() {
                 name="nome" value={objeto.nome} onchange={handleChange}
                 msgvalido="Campo nome OK" msginvalido="Informe o nome"
                 readonly={false} />
-            <CampoEntrada id="txtDono" label="Dono" tipo="text"
-                placeholder="Informe o dono" requerido="true"
-                name="dono" value={objeto.dono} onchange={handleChange} 
-                msgvalido="Campo dono OK" msginvalido="Informe o dono"
-                readonly={false} />
+            <CampoSelect id="selectPessoa" label="Pessoa"
+                requerido="true"
+                name="dono" value={objeto.dono}
+                onchange={handleChange}
+                msgvalido="Campo pessoa OK" msginvalido="Informe o dono"
+                readonly={false}>
+                {
+                    listaPessoas.map((cat) => (
+                        <option value={cat.id} key={cat.id}>{cat.nome}</option>
+                    ))
+                }
+            </CampoSelect>
         </Dialogo>
     )
 }
