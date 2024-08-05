@@ -1,12 +1,13 @@
+
 import { NavLink, Outlet } from 'react-router-dom';
 
-const Menu = () => {
+const MenuPublico = () => {
 
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <NavLink className="navbar-brand" aria-current="page" exact="true" to="/">PetShop</NavLink>
+                    <NavLink className="navbar-brand" aria-current="page" exact="true" to="/">Petshop</NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -15,16 +16,9 @@ const Menu = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link active" aria-current="page" exact="true" to="/">Home</NavLink>
                             </li>
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Manutenções
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><NavLink className="dropdown-item" exact="true" to="pessoa">Pessoa</NavLink></li>  
-                                    <li><NavLink className="dropdown-item" exact="true" to="pet">Pet</NavLink></li>                                                                      
-                                </ul>
-                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" aria-current="page" exact="true" to="/login">Login</NavLink>
+                            </li>                            
                         </ul>
                     </div>
                 </div>
@@ -34,4 +28,4 @@ const Menu = () => {
     )
 };
 
-export default Menu;
+export default MenuPublico;

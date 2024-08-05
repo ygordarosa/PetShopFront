@@ -7,8 +7,13 @@ import {
 import Tabela from "./Table";
 import Form from "./Form";
 import Carregando from "../../common/Loading";
+import WithAuth from "../../../seguranca/WithAuth";
+import { useNavigate } from "react-router-dom";
 
 function Pessoa() {
+
+    let navigate = useNavigate()
+
     const [alerta, setAlerta] = useState({ status: "", message: "" });
     const [listaObjetos, setListaObjetos] = useState([]);
     const [editar, setEditar] = useState(false);
@@ -31,8 +36,8 @@ function Pessoa() {
                 setAlerta({ status: "error", message: "Pessoa não encontrada." });
             }
         } catch (error) {
-            console.error("Erro ao editar objeto:", error);
-            setAlerta({ status: "error", message: "Erro ao buscar pessoa." });
+            window.location.reload();
+            navigate("login", { replace: true });
         }
     }
 
@@ -53,8 +58,8 @@ function Pessoa() {
                 throw new Error("Objeto retornado da API é inválido");
             }
         } catch (err) {
-            console.error("Erro ao cadastrar:", err);
-            setAlerta({ status: "error", message: "Erro ao cadastrar pessoa." });
+            window.location.reload();
+            navigate("login", { replace: true });
         }
         recuperaPessoas();
     }
@@ -77,8 +82,8 @@ function Pessoa() {
                 throw new Error("Lista de pessoas retornada da API é inválida");
             }
         } catch (error) {
-            console.error("Erro ao recuperar pessoas:", error);
-            setAlerta({ status: "error", message: "Erro ao carregar lista de pessoas." });
+            window.location.reload();
+            navigate("login", { replace: true });
         }
         setCarregando(false);
     }
@@ -90,8 +95,8 @@ function Pessoa() {
                 setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
                 recuperaPessoas();
             } catch (error) {
-                console.error("Erro ao remover pessoa:", error);
-                setAlerta({ status: "error", message: "Erro ao remover pessoa." });
+                window.location.reload();
+                navigate("login", { replace: true });
             }
         }
     }
@@ -117,4 +122,4 @@ function Pessoa() {
     )
 }
 
-export default Pessoa;
+export default WithAuth(Pessoa);

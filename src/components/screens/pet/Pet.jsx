@@ -8,8 +8,13 @@ import {
 import Tabela from "./Table";
 import Form from "./Form";
 import Carregando from "../../common/Loading";
+import WithAuth from "../../../seguranca/WithAuth";
+import { useNavigate } from "react-router-dom";
 
 function Pet() {
+
+    let navigate = useNavigate()
+
     const [alerta, setAlerta] = useState({ status: "", message: "" });
     const [listaObjetos, setListaObjetos] = useState([]);
     const [listaPessoas, setListaPessoas] = useState([]);
@@ -33,8 +38,8 @@ function Pet() {
                 setAlerta({ status: "error", message: "Pet não encontrado." });
             }
         } catch (error) {
-            console.error("Erro ao editar objeto:", error);
-            setAlerta({ status: "error", message: "Erro ao buscar pet." });
+             window.location.reload();
+            navigate("login", { replace: true });
         }
     }
 
@@ -54,8 +59,8 @@ function Pet() {
                 throw new Error("Objeto retornado da API é inválido");
             }
         } catch (err) {
-            console.error("Erro ao cadastrar:", err);
-            setAlerta({ status: "error", message: "Erro ao cadastrar pet." });
+            window.location.reload();
+            navigate("login", { replace: true });
         }
         recuperaPets();
     }
@@ -78,8 +83,8 @@ function Pet() {
                 throw new Error("Lista de pets retornada da API é inválida");
             }
         } catch (error) {
-            console.error("Erro ao recuperar pets:", error);
-            setAlerta({ status: "error", message: "Erro ao carregar lista de pets." });
+            window.location.reload();
+            navigate("login", { replace: true });
         }
         setCarregando(false);
     }
@@ -93,8 +98,8 @@ function Pet() {
                 throw new Error("Lista de pessoas retornada da API é inválida");
             }
         } catch (error) {
-            console.error("Erro ao recuperar pessoas:", error);
-            setAlerta({ status: "error", message: "Erro ao carregar lista de pessoas." });
+            window.location.reload();
+            navigate("login", { replace: true });
         }
     }
 
@@ -105,8 +110,8 @@ function Pet() {
                 setAlerta({ status: retornoAPI.status, message: retornoAPI.message });
                 recuperaPets();
             } catch (error) {
-                console.error("Erro ao remover pet:", error);
-                setAlerta({ status: "error", message: "Erro ao remover pet." });
+                window.location.reload();
+                navigate("login", { replace: true });
             }
         }
     }
@@ -133,4 +138,4 @@ function Pet() {
     )
 }
 
-export default Pet;
+export default WithAuth(Pet);
